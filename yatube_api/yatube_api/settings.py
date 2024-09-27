@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'django_filters', 
     'djoser',
     'api',
     'posts',
@@ -93,7 +94,7 @@ STATICFILES_DIRS = ((BASE_DIR / 'static/'),)
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+        'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -103,13 +104,12 @@ REST_FRAMEWORK = {
         'rest_framework.throttling.AnonRateThrottle',
     ],
     'DEFAULT_THROTTLE_RATES': {
-        'user': '10000/day',  # Лимит для UserRateThrottle
-        'anon': '1000/day',  # Лимит для AnonRateThrottle
+        'user': '10000/day',
+        'anon': '1000/day',
     }
 }
 
 SIMPLE_JWT = {
-    # Устанавливаем срок жизни токена
    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
    'AUTH_HEADER_TYPES': ('Bearer',),
 } 
