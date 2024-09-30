@@ -16,7 +16,6 @@ class Group(models.Model):
 class Follow(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='followers')
-    following = models.CharField(max_length=200)
     following = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -24,7 +23,12 @@ class Follow(models.Model):
     )
 
     class Meta:
-        unique_together = ('user', 'following')
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'following'],
+                name='unique_follow'
+            )
+        ]
 
 
 class Post(models.Model):
